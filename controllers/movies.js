@@ -3,7 +3,7 @@ const { createCustomError } = require('../errors/custom-error')
 
 const getAllMovies = async (req, res) => {
     const movies = await Movie.find({}).sort({ title: 1 })
-    res.json({ total: movies.length, movies })
+    res.status(200).json({ total: movies.length, movies })
 }
 
 const getMovie = async (req, res, next) => {
