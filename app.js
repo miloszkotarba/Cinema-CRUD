@@ -13,6 +13,8 @@ const notFoundMiddleware = require('./middleware/not-found')
 const errorMiddleware = require("./middleware/error-handler")
 
 const moviesRouter = require('./routes/movies')
+const roomsRouter = require('./routes/rooms')
+const screeningsRouter = require('./routes/screenings')
 
 // swagger
 const options = {
@@ -43,6 +45,8 @@ app.use(morgan('dev'))
 // routes
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/api/v1/movies', moviesRouter)
+app.use('/api/v1/rooms', roomsRouter)
+app.use('/api/v1/screenings', screeningsRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorMiddleware)
