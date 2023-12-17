@@ -79,7 +79,19 @@
  *       summary: Returns the list of all screenings
  *       tags:
  *         - Screenings
+ *       parameters:
+ *         - in: query
+ *           name: date
+ *           description: Filter screenings by date (e.g., '2023-11-12')
+ *         - in: query
+ *           name: movie
+ *           description: Filter screenings by ID of Movie Object (e.g., '657f463dff2cf6ad54a0710d')
+ *     post:
+ *       summary: Create a new screening
+ *       tags:
+ *         - Screenings
  */
+
 
 const express = require('express')
 const router = express.Router()
