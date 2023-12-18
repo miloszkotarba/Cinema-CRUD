@@ -43,6 +43,9 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 // routes
+app.get('/', (req, res) => {
+    res.redirect('/docs')
+})
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/api/v1/movies', moviesRouter)
 app.use('/api/v1/rooms', roomsRouter)

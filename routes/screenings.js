@@ -90,18 +90,57 @@
  *       summary: Create a new screening
  *       tags:
  *         - Screenings
+ *   /api/v1/screenings/{id}:
+ *     get:
+ *       summary: Get a specific screening by ID
+ *       tags:
+ *         - Screenings
+ *   /api/v1/screenings/{id}/reservations:
+ *     get:
+ *       summary: Returns the list of all reservations by ID of Screening
+ *       tags:
+ *         - Screenings
+ *     post:
+ *       summary: Push a new reservation to the Reservation Object
+ *       tags:
+ *         - Screenings
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             example:
+ *               seats:
+ *                 - seatNumber: 17
+ *                   typeOfSeat: 'normalny'
+ *                 - seatNumber: 20
+ *                   typeOfSeat: 'ulgowy'
+ *               client:
+ *                 lastName: 'Wójcikowski'
+ *                 firstName: 'Jan'
+ *                 email: 'jan.wojcikowski@interia.pl'
  */
+
 
 
 const express = require('express')
 const router = express.Router()
 
 const {
-    getAllScreenings,
-    createScreening,
-} = require('../controllers/screenings')
+        getAllScreenings,
+        getScreening,
+        createScreening,
+        updateScreening,
+        deleteScreening,
+        getAllReservations,
+        createReservation,
+        getSeats,
+    }
+= require('../controllers/screenings')
 
 router.route("/").get(getAllScreenings).post(createScreening)
+router.route("/:id").get(getScreening).patch(updateScreening).patch(deleteScreening)
+router.route("/:id/reservations").get(getAllReservations).post(createReservation)
+
 
 module.exports = router
 

@@ -5,7 +5,7 @@ const SeatSchema = new mongoose.Schema({
         type: Number,
         required: [true, "Seat is required"]
     },
-    typeofSeat: {
+    typeOfSeat: {
         type: String,
         required: [true, "Type of seat is required"],
         enum: {
