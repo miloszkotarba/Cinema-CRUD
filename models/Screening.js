@@ -47,6 +47,10 @@ const ScreeningSchema = new mongoose.Schema({
         required: [true, "Screening date is required"],
         default: Date.now()
     },
+    advertisementsDuration: {
+        type: Number,
+        required: [true, "The duration of advertisements is required"],
+    },
     movie: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Movie',
@@ -66,3 +70,8 @@ const ScreeningSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('Screening', ScreeningSchema);
+
+// @TODO seats restriction in reservation
+// @TODO mailing
+// @TODO screening edition
+// @TODO editing deleting reservation

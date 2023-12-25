@@ -54,6 +54,11 @@
  *
  *     Screening:
  *       type: object
+ *       required:
+ *         - date
+ *         - movie
+ *         - room
+ *         - advertisementsDuration
  *       properties:
  *         _id:
  *           type: string
@@ -62,13 +67,36 @@
  *           type: string
  *           format: date-time
  *           description: The date of the screening
+ *           example: "2023-12-31T18:30:00Z"
+ *         advertisementsDuration:
+ *           type: number
+ *           description: The duration of the advertisements in minutes
+ *         movie:
+ *           type: object
+ *           required:
+ *             - _id
+ *           properties:
+ *             _id:
+ *               type: string
+ *               description: The ID of the Movie Object
+ *         room:
+ *           type: object
+ *           required:
+ *             - _id
+ *           properties:
+ *             _id:
+ *               type: string
+ *               description: The ID of the Room Object
+ *         reservations:
+ *           type: array
+ *           description: <b>Array of Reservation Object.</b> The reservations
  */
 
 /**
  * @swagger
  * tags:
  *   name: Screenings
- *   description: Endpoints for managing Screenings
+ *   description: Endpoints for managing Screenings and Reservations
  */
 
 /**
@@ -95,6 +123,12 @@
  *       summary: Get a specific screening by ID
  *       tags:
  *         - Screenings
+ *     delete:
+ *       summary: Delete a specific screening by ID
+ *       tags:
+ *         - Screenings
+ *
+ *
  *   /api/v1/screenings/{id}/reservations:
  *     get:
  *       summary: Returns the list of all reservations by ID of Screening
@@ -117,7 +151,15 @@
  *               client:
  *                 lastName: 'Wójcikowski'
  *                 firstName: 'Jan'
- *                 email: 'jan.wojcikowski@interia.pl'
+ *                 email: 'msiuda9@gmail.com'
+ *
+ *
+ *
+ *   /api/v1/screenings/{id}/reservations/{id}:
+ *     get:
+ *       summary: Get a specific reservation by ID
+ *       tags:
+ *         - Screenings
  */
 
 
@@ -132,14 +174,19 @@ const {
         updateScreening,
         deleteScreening,
         getAllReservations,
+        getReservation,
         createReservation,
+        deleteReservation,
         getSeats,
-    }
+        testFunction
+}
 = require('../controllers/screenings')
 
 router.route("/").get(getAllScreenings).post(createScreening)
-router.route("/:id").get(getScreening).patch(updateScreening).patch(deleteScreening)
+router.route("/:id").get(getScreening).patch(updateScreening).delete(deleteScreening)
 router.route("/:id/reservations").get(getAllReservations).post(createReservation)
+router.route("/:id/reservations/:reservationID").get(getReservation).delete(deleteReservation)
+router.route("/:id/test").get(testFunction)
 
 
 module.exports = router
