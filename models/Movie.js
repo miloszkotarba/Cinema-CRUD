@@ -18,6 +18,10 @@ const MovieSchema = new mongoose.Schema({
             type: String,
             required: [true, "Release Country is required"],
         },
+        poster: {
+            data: Buffer,
+            contentType: String,
+        }
     },
     duration: {
         type: Number,
@@ -38,6 +42,13 @@ const MovieSchema = new mongoose.Schema({
         type: String,
         required: [true, "Description is required"],
     },
+    posterUrl: {
+        type: String,
+        default: null
+    },
+    posterPublicId: {
+        type: String,
+    }
 }, {
     versionKey: false
 })

@@ -1,3 +1,13 @@
+require('dotenv').config();
+const cloudinary = require('cloudinary').v2;
+const fs = require('fs')
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 const Movie = require('../models/Movie')
 const { createCustomError } = require('../errors/custom-error')
 
@@ -18,9 +28,24 @@ const getMovie = async (req, res, next) => {
 }
 
 const createMovie = async (req, res) => {
-    const movie = await Movie.create(req.body)
-    res.status(201).json(movie)
-}
+        if (!req.file) {
+            return res.status(400).json({ error: 'Nie przesłano pliku obrazu' });
+        }
+
+        const { secure_url, public_id } = await cloudinary.uploader.upload(req.file.path);
+
+        const movie = await Movie.create({
+            ...req.body,
+            posterUrl: secure_url,
+            posterPublicId: public_id,
+        });
+
+        if (req.file && req.file.path) {
+            fs.unlinkSync(req.file.path);
+        }
+
+        res.status(201).json(movie);
+};
 
 const updateMovie = async (req, res, next) => {
     const { id: movieID } = req.params

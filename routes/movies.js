@@ -88,6 +88,9 @@
  *         - Movies
  */
 
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
 const express = require('express')
 const router = express.Router()
 
@@ -99,7 +102,7 @@ const {
     deleteMovie
 } = require('../controllers/movies')
 
-router.route("/").get(getAllMovies).post(createMovie)
+router.route("/").get(getAllMovies).post(upload.single('poster'), createMovie)
 router.route("/:id").get(getMovie).patch(updateMovie).delete(deleteMovie)
 
 module.exports = router

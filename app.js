@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const swaggerUI = require('swagger-ui-express')
 const swaggerJsDoc = require('swagger-jsdoc')
+const cors = require('cors')
 
 // own modules
 const connectDB = require('./db/connect');
@@ -43,6 +44,7 @@ const app = express()
 // middleware
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(cors())
 
 // routes
 app.get('/', (req, res) => {
