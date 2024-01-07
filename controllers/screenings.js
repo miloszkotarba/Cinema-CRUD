@@ -13,8 +13,12 @@ const getAllScreenings = async (req, res) => {
     const queryObject = {}
 
     if (date) {
-        const startOfDayDate = startOfDay(new Date(date));
-        const endOfDayDate = endOfDay(new Date(date));
+        // Zmiana formatu daty z "31-12-2024" na "2024-12-31"
+        const [day, month, year] = date.split('-');
+        const isoFormatDate = `${year}-${month}-${day}`;
+
+        const startOfDayDate = startOfDay(new Date(isoFormatDate));
+        const endOfDayDate = endOfDay(new Date(isoFormatDate));
 
         queryObject.date = { $gte: startOfDayDate, $lt: endOfDayDate };
     }
