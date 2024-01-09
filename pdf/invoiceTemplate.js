@@ -176,10 +176,11 @@ function formatCurrency(money) {
 }
 
 function formatDate(date) {
-    const day = date.getDate()
-    const month = date.getMonth() + 1
+    let day = date.getDate()
+    if (day < 10) day = '0' + day
+    let month = date.getMonth() + 1
+    if(month < 10) month = '0' + month
     const year = date.getFullYear()
-
     let hour = date.getHours()
     if(hour < 10) hour = '0'+ hour
     let minutes = date.getMinutes()
@@ -195,9 +196,7 @@ function formatDateDay(dataString) {
 
     const year = dateObject.getFullYear();
     let month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
-    if (month < 10) month = '0' + month
     let day = dateObject.getDate().toString().padStart(2, '0');
-    if (day < 10) day = '0' + day
 
     return year + "-" + month + "-" + day
 }
