@@ -22,10 +22,11 @@ function generateHeader(doc) {
         .fillColor("#111")
         .fontSize(20)
         .text("Screenix", 130, 57)
-        .fontSize(10)
+        .fontSize(11)
+        .font("fonts/Poppins.ttf")
         .text("Screenix sp. z o.o.", 200, 50, { align: "right" })
-        .text("ul. Paderewskiego 12/10", 200, 65, { align: "right" })
-        .text("Warszawa, 00-122", 200, 80, { align: "right" })
+        .text("ul. Drewnowska 58", 200, 65, { align: "right" })
+        .text("Łódź, 91-002", 200, 80, { align: "right" })
         .moveDown()
 }
 
@@ -73,18 +74,22 @@ function generateScreeningInformation(doc, invoice) {
         .font('fonts/Poppins.ttf')
         .text("Film:", 50, customerInformationTop)
         .font('fonts/Poppins Bold.ttf')
-        .text(invoice.screening.movie, 150, customerInformationTop)
+        .text(invoice.screening.movie, 200, customerInformationTop)
         .font('fonts/Poppins.ttf')
-        .text("Miejsca:", 50, customerInformationTop + 45)
-        .text(seatsString, 150, customerInformationTop + 45)
+        .text("Miejsca:", 50, customerInformationTop + 75)
+        .text(seatsString, 200, customerInformationTop + 75)
         .text("Data:", 50, customerInformationTop + 15)
-        .text("Czas:", 50, customerInformationTop + 30)
-        .text(formatDateDay(invoice.screening.date), 150, customerInformationTop + 15)
+        .text("Czas rozpoczęcia:", 50, customerInformationTop + 30)
+        .text(formatDateDay(invoice.screening.date), 200, customerInformationTop + 15)
+        .text("Czas zakończenia:", 50, customerInformationTop + 45)
+        .text(addMinutesToTime(invoice.screening.date, invoice.screening.duration), 200, customerInformationTop + 45)
+        .text("Długość reklam:", 50, customerInformationTop + 60)
+        .text(`${invoice.screening.advertisementsDuration} min`, 200, customerInformationTop + 60)
         .font('fonts/Poppins.ttf')
-        .text(formatTime(invoice.screening.date), 150, customerInformationTop + 30)
-        .text("Sala:", 50, customerInformationTop + 60)
+        .text(formatTime(invoice.screening.date), 200, customerInformationTop + 30)
+        .text("Sala:", 50, customerInformationTop + 90)
         .font('fonts/Poppins.ttf')
-        .text(invoice.screening.room, 150, customerInformationTop + 60)
+        .text(invoice.screening.room, 200, customerInformationTop + 90)
         .font('fonts/Poppins.ttf')
         .moveDown()
 }
@@ -199,6 +204,13 @@ function formatDateDay(dataString) {
     let day = dateObject.getDate().toString().padStart(2, '0');
 
     return year + "-" + month + "-" + day
+}
+
+function addMinutesToTime(startTimeString, minutesToAdd) {
+    const startTime = new Date(startTimeString);
+    const endTime = new Date(startTime.getTime() + minutesToAdd * 60000);
+    const formattedEndTime = endTime.getHours().toString().padStart(2, '0') + ":" + endTime.getMinutes().toString().padStart(2, '0');
+    return formattedEndTime;
 }
 
 function formatTime(dataString) {
