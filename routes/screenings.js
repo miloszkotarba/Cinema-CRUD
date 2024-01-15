@@ -168,25 +168,24 @@ const express = require('express')
 const router = express.Router()
 
 const {
-        getAllScreenings,
-        getScreening,
-        createScreening,
-        updateScreening,
-        deleteScreening,
-        getAllReservations,
-        getReservation,
-        createReservation,
-        deleteReservation,
-        getSeats,
-        testFunction
+    getAllScreenings,
+    getScreening,
+    createScreening,
+    updateScreening,
+    deleteScreening,
+    getAllReservations,
+    getReservation,
+    createReservation,
+    updateReservation,
+    deleteReservation,
+
 }
-= require('../controllers/screenings')
+    = require('../controllers/screenings')
 
 router.route("/").get(getAllScreenings).post(createScreening)
 router.route("/:id").get(getScreening).patch(updateScreening).delete(deleteScreening)
 router.route("/:id/reservations").get(getAllReservations).post(createReservation)
-router.route("/:id/reservations/:reservationID").get(getReservation).delete(deleteReservation)
-router.route("/:id/test").get(testFunction)
+router.route("/:id/reservations/:reservationID").get(getReservation).patch(updateReservation).delete(deleteReservation)
 
 
 module.exports = router
