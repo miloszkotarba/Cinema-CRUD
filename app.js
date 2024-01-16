@@ -7,6 +7,7 @@ const morgan = require('morgan')
 const swaggerUI = require('swagger-ui-express')
 const swaggerJsDoc = require('swagger-jsdoc')
 const cors = require('cors')
+const path = require('path')
 
 // own modules
 const connectDB = require('./db/connect');
@@ -46,10 +47,8 @@ app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
 
-// routes
-app.get('/', (req, res) => {
-    res.redirect('/docs')
-})
+app.use(express.static(path.join(__dirname, 'public/dist')));
+
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/api/v1/movies', moviesRouter)
 app.use('/api/v1/rooms', roomsRouter)
