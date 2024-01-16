@@ -49,6 +49,10 @@ app.use(cors())
 
 app.use(express.static(path.join(__dirname, 'public/dist')));
 
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/dist', 'index.html'));
+})
+
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/api/v1/movies', moviesRouter)
 app.use('/api/v1/rooms', roomsRouter)
