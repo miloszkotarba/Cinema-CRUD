@@ -26,5 +26,5 @@ Explore the project features through the following demo links:
 
 - **API Documentation:**  
    [Swagger Endpoint](https://api.kino-screenix.pl/docs)  
-   API documentation with  endpoints.
+   API documentation with endpoints.
 
